@@ -9,6 +9,10 @@ from ...ops.roiaware_pool3d import roiaware_pool3d_utils
 from ...utils import box_utils, calibration_kitti, common_utils, object3d_kitti
 from ..dataset import DatasetTemplate
 
+import yaml
+from pathlib import Path
+from easydict import EasyDict
+
 
 class KittiDataset(DatasetTemplate):
     def __init__(self, dataset_cfg, class_names, training=True, root_path=None, logger=None):
@@ -471,9 +475,6 @@ def create_kitti_infos(dataset_cfg, class_names, data_path, save_path, workers=4
 if __name__ == '__main__':
     import sys
     if sys.argv.__len__() > 1 and sys.argv[1] == 'create_kitti_infos':
-        import yaml
-        from pathlib import Path
-        from easydict import EasyDict
         dataset_cfg = EasyDict(yaml.safe_load(open(sys.argv[2])))
         ROOT_DIR = (Path(__file__).resolve().parent / '../../../').resolve()
         create_kitti_infos(
