@@ -180,9 +180,10 @@ class KittiDataset(DatasetTemplate):
                 annotations['truncated'] = np.array([obj.truncation for obj in obj_list])
                 annotations['occluded'] = np.array([obj.occlusion for obj in obj_list])
                 annotations['alpha'] = np.array([obj.alpha for obj in obj_list])
-                annotations['bbox'] = np.concatenate([obj.box2d.reshape(1, 4) for obj in obj_list], axis=0)
+                print(sample_idx, "!!!!!!!!!!!", len(obj_list))
+                annotations['bbox'] = np.concatenate([obj.box2d.reshape(1, 4) for obj in obj_list], axis=0) if len(obj_list) != 0 else np.array([])
                 annotations['dimensions'] = np.array([[obj.l, obj.h, obj.w] for obj in obj_list])  # lhw(camera) format
-                annotations['location'] = np.concatenate([obj.loc.reshape(1, 3) for obj in obj_list], axis=0)
+                annotations['location'] = np.concatenate([obj.loc.reshape(1, 3) for obj in obj_list], axis=0) if len(obj_list) != 0 else np.array([])
                 annotations['rotation_y'] = np.array([obj.ry for obj in obj_list])
                 annotations['score'] = np.array([obj.score for obj in obj_list])
                 annotations['difficulty'] = np.array([obj.level for obj in obj_list], np.int32)
