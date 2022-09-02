@@ -173,8 +173,10 @@ class KittiDataset(DatasetTemplate):
 
             info['calib'] = calib_info
 
-            if has_label and len(obj_list) != 0:
+            if has_label:
                 obj_list = self.get_label(sample_idx)
+                if len(obj_list) != 0:
+                    return info
                 annotations = {}
                 annotations['name'] = np.array([obj.cls_type for obj in obj_list])
                 annotations['truncated'] = np.array([obj.truncation for obj in obj_list])
